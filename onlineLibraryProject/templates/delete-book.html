@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Delete Book Page -->
+    <section id="delete-page" class="edit">
+        <form id="delete-form" action="{% url 'book delete' pk=book.pk %}" method="post">
+            <fieldset>
+                <legend>Delete Book</legend>
+                {{ form }}
+                <input class="button submit" type="submit" value="Delete">
+                {% csrf_token %}
+            </fieldset>
+        </form>
+    </section>
+
+{% endblock %}
