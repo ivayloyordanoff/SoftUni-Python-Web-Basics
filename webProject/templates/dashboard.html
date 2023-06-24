@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <main>
+
+        <!-- Dashboard Page -->
+        {% if fruits %}
+            <h2>Fruits</h2>
+            <section id="dashboard">
+                <!-- Display a div "fruit" with information about each fruit (if any)-->
+                {% for fruit in fruits %}
+                    <!-- first fruit -->
+                    <div class="fruit">
+                        <!-- fruit image -->
+                        <img src="{{ fruit.image_url }}" alt="{{ fruit.name }}"/>
+                        <!-- fruit name -->
+                        <h3 class="title">{{ fruit.name }}</h3>
+                        <!-- fruit description -->
+                        <p class="description">{{ fruit.description|truncatechars:50 }}</p>
+                        <!-- fruit details button -->
+                        <a class="details-btn" href="{% url 'fruit details' pk=fruit.pk %}">More Info</a>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="clearfix"></div>
+                    {% endif %}
+                {% endfor %}
+            </section>
+        {% else %}
+            <!-- Display a heading if there are no fruits -->
+            <h2>No fruit info yet.</h2>
+        {% endif %}
+
+    </main>
+
+    <style>
+        .fruit {
+            width: calc(33.33% - 20px);
+            float: left;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 767px) {
+            .fruit {
+                width: calc(33.33% - 20px);
+            }
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+
+{% endblock %}
